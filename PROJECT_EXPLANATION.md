@@ -155,6 +155,156 @@ crud-java/
 2. Login with username: `sa`, password: `password`
 3. View and modify data directly in the database
 
+## 💻 **NetBeans IDE Setup Guide**
+
+### **Prerequisites for NetBeans:**
+
+1. **Java JDK 17 or higher**
+
+   - Download from: https://adoptium.net/ or https://www.oracle.com/java/technologies/downloads/
+   - Install and set JAVA_HOME environment variable
+
+2. **NetBeans IDE**
+   - Download NetBeans 21 or higher from: https://netbeans.apache.org/download/
+   - Choose "Java SE" or "All" bundle during installation
+
+### **Opening the Project in NetBeans:**
+
+#### **Step 1: Import the Project**
+
+1. Open NetBeans IDE
+2. Go to **File → Open Project**
+3. Navigate to your `crud-java` folder
+4. Select the folder and click **Open**
+5. NetBeans will automatically detect it as a Maven project
+
+#### **Step 2: Verify Project Setup**
+
+1. In the **Projects** tab, you should see:
+   - `crud-java` project with Maven icon
+   - `Dependencies` folder with all required libraries
+   - `Source Packages` with your Java files
+
+#### **Step 3: Configure Java Version**
+
+1. Right-click on the project name
+2. Select **Properties**
+3. Go to **Sources** category
+4. Ensure **Source/Binary Format** is set to **JDK 17**
+5. Click **OK**
+
+### **Running the Application in NetBeans:**
+
+#### **Method 1: Using NetBeans Run Button**
+
+1. Right-click on `CrudJavaApplication.java` in the Projects tab
+2. Select **Run File**
+3. The application will start and show output in the Output window
+4. You'll see: `Started CrudJavaApplication in X.XXX seconds`
+
+#### **Method 2: Using Maven Commands**
+
+1. Right-click on the project name
+2. Select **Run Maven → Goals**
+3. Type: `spring-boot:run`
+4. Click **OK**
+
+#### **Method 3: Using Terminal in NetBeans**
+
+1. Go to **Window → IDE Tools → Terminal**
+2. Navigate to your project directory
+3. Run: `mvn spring-boot:run`
+
+### **Testing the Application:**
+
+1. **Open Browser**: Go to `http://localhost:8080`
+2. **Test Web Interface**: Use the forms to create, view, update, and delete users
+3. **Test API**: Visit `http://localhost:8080/api/users` to see JSON response
+4. **Database Console**: Visit `http://localhost:8080/h2-console`
+
+### **Debugging in NetBeans:**
+
+#### **Setting Breakpoints:**
+
+1. Open any Java file (e.g., `UserController.java`)
+2. Click in the left margin next to a line number to set a breakpoint
+3. Run the application in debug mode: Right-click project → **Debug**
+
+#### **Debug Mode:**
+
+1. Right-click on the project
+2. Select **Debug** instead of **Run**
+3. The application will pause at breakpoints
+4. Use **F5** to step through code, **F8** to continue
+
+### **Common NetBeans Issues & Solutions:**
+
+#### **Issue 1: Maven Dependencies Not Downloaded**
+
+- **Solution**: Right-click project → **Clean and Build**
+- **Alternative**: Right-click project → **Run Maven → Reload Project**
+
+#### **Issue 2: Java Version Mismatch**
+
+- **Solution**: Right-click project → **Properties → Sources → Source/Binary Format → JDK 17**
+
+#### **Issue 3: Port 8080 Already in Use**
+
+- **Solution**:
+  1. Open `application.properties`
+  2. Add: `server.port=8081`
+  3. Restart the application
+  4. Access at `http://localhost:8081`
+
+#### **Issue 4: Project Not Recognized as Maven Project**
+
+- **Solution**:
+  1. Close NetBeans
+  2. Delete `.netbeans` folder in project directory
+  3. Reopen NetBeans and import project again
+
+### **NetBeans Features for This Project:**
+
+#### **Code Completion:**
+
+- Type `@` and see available annotations
+- Type `@RestController` and press **Ctrl+Space** for auto-completion
+
+#### **Navigation:**
+
+- **Ctrl+Click** on any class name to go to its definition
+- **Ctrl+Shift+F** to search across all files
+- **Ctrl+R** to find and replace
+
+#### **Project Structure:**
+
+- **Projects** tab shows your project hierarchy
+- **Files** tab shows actual file system
+- **Services** tab shows database connections
+
+#### **Database Integration:**
+
+1. Go to **Services** tab
+2. Right-click **Databases**
+3. Select **New Connection**
+4. Choose **H2 (Embedded)**
+5. Set JDBC URL: `jdbc:h2:mem:testdb`
+6. Username: `sa`, Password: `password`
+
+### **Building and Packaging:**
+
+#### **Create JAR File:**
+
+1. Right-click project → **Run Maven → Goals**
+2. Type: `clean package`
+3. Find the JAR in `target/crud-java-1.0.0.jar`
+
+#### **Run JAR File:**
+
+1. Open Terminal in NetBeans
+2. Navigate to `target` folder
+3. Run: `java -jar crud-java-1.0.0.jar`
+
 ## 🚀 **Why This Project is Useful**
 
 ### **For Learning:**
