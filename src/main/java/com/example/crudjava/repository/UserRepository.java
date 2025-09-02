@@ -32,3 +32,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // Count users by name
     long countByName(String name);
 }
+
+
+

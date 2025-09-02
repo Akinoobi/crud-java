@@ -37,3 +37,6 @@ public class DataInitializer implements CommandLineRunner {
         System.out.println("Created " + userRepository.count() + " users");
     }
 }
+
+
+

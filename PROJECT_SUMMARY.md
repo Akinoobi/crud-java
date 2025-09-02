@@ -185,3 +185,6 @@ If you encounter any issues:
 4. Restart your terminal after installation
 
 The application is production-ready and can be easily extended with additional features like authentication, more entities, or different databases.
+
+
+
