@@ -1,0 +1,8 @@
+target/
+!target/*.jar
+*.md
+.git/
+.gitignore
+README.md
+QUICK_START.md
+SETUP_GUIDE.md

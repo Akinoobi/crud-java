@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Java API Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .endpoint {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .method {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .url {
+            font-family: monospace;
+            background-color: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .response {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CRUD Java API Tester</h1>
+    
+    <div class="container">
+        <h2>API Endpoints</h2>
+        
+        <div class="endpoint">
+            <div class="method">GET</div>
+            <div class="url">/api/users</div>
+            <p>Get all users</p>
+            <button onclick="getAllUsers()">Get All Users</button>
+            <div id="getAllResponse" class="response" style="display: none;"></div>
+        </div>
+
+        <div class="endpoint">
+            <div class="method">GET</div>
+            <div class="url">/api/users/{id}</div>
+            <p>Get user by ID</p>
+            <div class="form-group">
+                <label>User ID:</label>
+                <input type="number" id="getUserId" placeholder="Enter user ID">
+            </div>
+            <button onclick="getUserById()">Get User by ID</button>
+            <div id="getUserResponse" class="response" style="display: none;"></div>
+        </div>
+
+        <div class="endpoint">
+            <div class="method">POST</div>
+            <div class="url">/api/users</div>
+            <p>Create a new user</p>
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" id="createName" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" id="createEmail" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label>Password:</label>
+                <input type="password" id="createPassword" placeholder="Enter password">
+            </div>
+            <div class="form-group">
+                <label>Phone:</label>
+                <input type="text" id="createPhone" placeholder="Enter phone">
+            </div>
+            <button onclick="createUser()">Create User</button>
+            <div id="createResponse" class="response" style="display: none;"></div>
+        </div>
+
+        <div class="endpoint">
+            <div class="method">PUT</div>
+            <div class="url">/api/users/{id}</div>
+            <p>Update user</p>
+            <div class="form-group">
+                <label>User ID:</label>
+                <input type="number" id="updateUserId" placeholder="Enter user ID">
+            </div>
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" id="updateName" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" id="updateEmail" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label>Password:</label>
+                <input type="password" id="updatePassword" placeholder="Enter password">
+            </div>
+            <div class="form-group">
+                <label>Phone:</label>
+                <input type="text" id="updatePhone" placeholder="Enter phone">
+            </div>
+            <button onclick="updateUser()">Update User</button>
+            <div id="updateResponse" class="response" style="display: none;"></div>
+        </div>
+
+        <div class="endpoint">
+            <div class="method">DELETE</div>
+            <div class="url">/api/users/{id}</div>
+            <p>Delete user</p>
+            <div class="form-group">
+                <label>User ID:</label>
+                <input type="number" id="deleteUserId" placeholder="Enter user ID">
+            </div>
+            <button onclick="deleteUser()">Delete User</button>
+            <div id="deleteResponse" class="response" style="display: none;"></div>
+        </div>
+
+        <div class="endpoint">
+            <div class="method">GET</div>
+            <div class="url">/api/users/search?name={name}</div>
+            <p>Search users by name</p>
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" id="searchName" placeholder="Enter name to search">
+            </div>
+            <button onclick="searchUsers()">Search Users</button>
+            <div id="searchResponse" class="response" style="display: none;"></div>
+        </div>
+
+        <div class="endpoint">
+            <div class="method">GET</div>
+            <div class="url">/api/users/health</div>
+            <p>Health check</p>
+            <button onclick="healthCheck()">Health Check</button>
+            <div id="healthResponse" class="response" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8080/api/users';
+
+        function showResponse(elementId, data) {
+            const element = document.getElementById(elementId);
+            element.style.display = 'block';
+            element.textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function getAllUsers() {
+            try {
+                const response = await fetch(API_BASE);
+                const data = await response.json();
+                showResponse('getAllResponse', data);
+            } catch (error) {
+                showResponse('getAllResponse', { error: error.message });
+            }
+        }
+
+        async function getUserById() {
+            const id = document.getElementById('getUserId').value;
+            if (!id) {
+                alert('Please enter a user ID');
+                return;
+            }
+            try {
+                const response = await fetch(`${API_BASE}/${id}`);
+                const data = await response.json();
+                showResponse('getUserResponse', data);
+            } catch (error) {
+                showResponse('getUserResponse', { error: error.message });
+            }
+        }
+
+        async function createUser() {
+            const userData = {
+                name: document.getElementById('createName').value,
+                email: document.getElementById('createEmail').value,
+                password: document.getElementById('createPassword').value,
+                phone: document.getElementById('createPhone').value
+            };
+            try {
+                const response = await fetch(API_BASE, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+                const data = await response.json();
+                showResponse('createResponse', data);
+            } catch (error) {
+                showResponse('createResponse', { error: error.message });
+            }
+        }
+
+        async function updateUser() {
+            const id = document.getElementById('updateUserId').value;
+            if (!id) {
+                alert('Please enter a user ID');
+                return;
+            }
+            const userData = {
+                name: document.getElementById('updateName').value,
+                email: document.getElementById('updateEmail').value,
+                password: document.getElementById('updatePassword').value,
+                phone: document.getElementById('updatePhone').value
+            };
+            try {
+                const response = await fetch(`${API_BASE}/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+                const data = await response.json();
+                showResponse('updateResponse', data);
+            } catch (error) {
+                showResponse('updateResponse', { error: error.message });
+            }
+        }
+
+        async function deleteUser() {
+            const id = document.getElementById('deleteUserId').value;
+            if (!id) {
+                alert('Please enter a user ID');
+                return;
+            }
+            try {
+                const response = await fetch(`${API_BASE}/${id}`, {
+                    method: 'DELETE'
+                });
+                const data = await response.json();
+                showResponse('deleteResponse', data);
+            } catch (error) {
+                showResponse('deleteResponse', { error: error.message });
+            }
+        }
+
+        async function searchUsers() {
+            const name = document.getElementById('searchName').value;
+            if (!name) {
+                alert('Please enter a name to search');
+                return;
+            }
+            try {
+                const response = await fetch(`${API_BASE}/search?name=${encodeURIComponent(name)}`);
+                const data = await response.json();
+                showResponse('searchResponse', data);
+            } catch (error) {
+                showResponse('searchResponse', { error: error.message });
+            }
+        }
+
+        async function healthCheck() {
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                showResponse('healthResponse', data);
+            } catch (error) {
+                showResponse('healthResponse', { error: error.message });
+            }
+        }
+    </script>
+</body>
+</html>
